@@ -28,7 +28,7 @@ GitHub Actions를 이용해 **매주 월요일 오전 8시(한국시간)** 자�
 ├── daily_auto_system.py # 자동 점검 Python 코드
 ├── .github/
 │ └── workflows/
-│ └── auto_inspection.yml # GitHub Actions 워크플로 설정
+│ └── daily-check.yml # GitHub Actions 워크플로 설정
 └── README.md
 ```
 
