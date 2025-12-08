@@ -129,7 +129,7 @@ try:
 
     # 300: 점검
     try:
-        general_check = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[1]/th[2]/input")))
+        general_check = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id="check_tblList"]/tbody/tr[1]/th[2]/input")))
         electrical_check = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id="check_tblList"]/tbody/tr[8]/th[2]/input")))
         fire_check = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id="check_tblList"]/tbody/tr[13]/th[2]/input")))
         mark(300, "체크박스 찾기")
@@ -161,6 +161,7 @@ finally:
         driver.quit()
     except Exception:
         pass
+
 
 
 
