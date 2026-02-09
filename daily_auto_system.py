@@ -6,9 +6,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 
+
 def close_popup(driver):
     popup_btn = (By.XPATH, '//*[@id="Incidentsfooter_myEduPop"]/div[2]/a/input')
-
     try:
         el = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(popup_btn))
         el.click()
@@ -17,8 +17,10 @@ def close_popup(driver):
     except TimeoutException:
         return False
 
+
 def mark(code: int, msg: str):
     print(f"[CHECK {code}] {msg}", flush=True)
+
 
 def fail(code: int, msg: str, err: Exception | None = None, driver: webdriver.Chrome | None = None):
     print(f"::error title=FAILED {code}::{msg}", flush=True)
@@ -33,6 +35,7 @@ def fail(code: int, msg: str, err: Exception | None = None, driver: webdriver.Ch
         except Exception:
             pass
     raise
+
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
@@ -99,10 +102,14 @@ try:
 
     try:
         driver.execute_script("arguments[0].scrollIntoView({block:'center'});", id_box)
-        id_box.click(); id_box.clear(); id_box.send_keys(ID)
+        id_box.click();
+        id_box.clear();
+        id_box.send_keys(ID)
 
         driver.execute_script("arguments[0].scrollIntoView({block:'center'});", pw_box)
-        pw_box.click(); pw_box.clear(); pw_box.send_keys(PASSWORD)
+        pw_box.click();
+        pw_box.clear();
+        pw_box.send_keys(PASSWORD)
 
         mark(150, "ID/PW 입력 완료")
     except Exception as e:
@@ -113,8 +120,9 @@ try:
         login_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='btnUser']")))
         login_btn.click()
         mark(160, "로그인 버튼 클릭")
+
         close_popup(driver)
-        
+
     except TimeoutException as e:
         fail(161, "로그인 버튼 찾지 못함", e, driver)
     except Exception as e:
@@ -122,8 +130,10 @@ try:
 
     # 200: 일상 점검 페이지 진입
     try:
-        daily_test_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='main_bg_area_wrap']/div/div[2]/div[1]/ul/li[1]/a")))
+        daily_test_btn = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='main_bg_area_wrap']/div/div[2]/div[1]/ul/li[1]/a")))
         daily_test_btn.click()
+        close_popup(driver)
         mark(200, "일상 점검 페이지 진입")
     except TimeoutException as e:
         fail(201, "일상 점검 버튼 찾지 못함", e, driver)
@@ -132,7 +142,8 @@ try:
 
     # 210: 점검 화면 진입
     try:
-        test_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='divList']/div[3]/table/tbody/tr/td/p/a[2]")))
+        test_btn = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='divList']/div[3]/table/tbody/tr/td/p/a[2]")))
         test_btn.click()
         mark(210, "점검 화면 들어가기")
     except TimeoutException as e:
@@ -142,9 +153,12 @@ try:
 
     # 300: 점검
     try:
-        general_check = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[1]/th[2]/input")))
-        electrical_check = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[8]/th[2]/input")))
-        fire_check = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[13]/th[2]/input")))
+        general_check = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[1]/th[2]/input")))
+        electrical_check = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[8]/th[2]/input")))
+        fire_check = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[13]/th[2]/input")))
         mark(300, "체크박스 찾기")
     except TimeoutException as e:
         fail(304, "체크박스 요소 찾기 실패", e, driver)
@@ -174,13 +188,3 @@ finally:
         driver.quit()
     except Exception:
         pass
-
-
-
-
-
-
-
-
-
-
