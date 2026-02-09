@@ -6,6 +6,17 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 
+def close_popup(driver):
+    popup_btn = (By.XPATH, '//*[@id="Incidentsfooter_myEduPop"]/div[2]/a/input')
+
+    try:
+        el = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(popup_btn))
+        el.click()
+        print("[POPUP] popup dismissed (today)", flush=True)
+        return True
+    except TimeoutException:
+        return False
+
 def mark(code: int, msg: str):
     print(f"[CHECK {code}] {msg}", flush=True)
 
@@ -102,6 +113,8 @@ try:
         login_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='btnUser']")))
         login_btn.click()
         mark(160, "로그인 버튼 클릭")
+        close_popup(driver)
+        
     except TimeoutException as e:
         fail(161, "로그인 버튼 찾지 못함", e, driver)
     except Exception as e:
@@ -161,6 +174,7 @@ finally:
         driver.quit()
     except Exception:
         pass
+
 
 
 
