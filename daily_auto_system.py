@@ -8,7 +8,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 
 
 def close_popup(driver):
-    popup_btn = (By.XPATH, '//*[@id="Incidentsfooter_myEduPop"]/div[2]/a/input')
+    popup_btn = (By.XPATH, '//html/body/div[6]/div[1]/button')
     try:
         el = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(popup_btn))
         el.click()
@@ -188,3 +188,4 @@ finally:
         driver.quit()
     except Exception:
         pass
+
