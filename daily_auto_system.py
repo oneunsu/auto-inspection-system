@@ -172,6 +172,7 @@ try:
         general_check.click()
         electrical_check.click()
         fire_check.click()
+        battery_check.click()
         mark(310, "체크 항목 클릭 완료")
     except Exception as e:
         fail(311, "체크 항목 클릭 중 오류", e, driver)
@@ -193,3 +194,4 @@ finally:
         driver.quit()
     except Exception:
         pass
+
