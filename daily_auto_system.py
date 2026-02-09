@@ -8,11 +8,14 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 
 
 def close_popup(driver):
-    popup_btn = (By.XPATH, '//html/body/div[6]/div[1]/button')
+    popup_btn = (By.XPATH, '/html/body/div[6]/div[1]/button')
+    popup_root = (By.ID, "Incidentsfooter_myEduPop")
+
     try:
         el = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(popup_btn))
         el.click()
-        print("[POPUP] popup dismissed (today)", flush=True)
+        WebDriverWait(driver, 3).until(EC.invisibility_of_element_located(popup_root))
+        print("[POPUP] popup dismissed", flush=True)
         return True
     except TimeoutException:
         return False
@@ -159,6 +162,8 @@ try:
             EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[8]/th[2]/input")))
         fire_check = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[13]/th[2]/input")))
+        battery_check = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='check_tblList']/tbody/tr[17]/th[2]/input")))
         mark(300, "체크박스 찾기")
     except TimeoutException as e:
         fail(304, "체크박스 요소 찾기 실패", e, driver)
@@ -188,4 +193,3 @@ finally:
         driver.quit()
     except Exception:
         pass
-
